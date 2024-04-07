@@ -8,16 +8,16 @@ let time = 0; // 시간을 나타내는 변수
 
 function bling() {
   if (time === 0) {
-    document.querySelector('.title1').style.color = '#d6806e';
+    document.querySelector('.title').style.color = '#d6806e';
     time++;
   } else if (time === 1) {
-    document.querySelector('.title1').style.color = '#fbb666';
+    document.querySelector('.title').style.color = '#fbb666';
     time++;
   } else if (time === 2) {
-    document.querySelector('.title1').style.color = '#f9f871';
+    document.querySelector('.title').style.color = '#f9f871';
     time++;
   } else { 
-    document.querySelector('.title1').style.color = '#f2ecff';
+    document.querySelector('.title').style.color = '#f2ecff';
     time = 0; // 무한 반복
   }
 }
@@ -71,7 +71,7 @@ function showingMole () {
   } else {
     modalEvent(); // 엔딩
     $startBtn.addEventListener('click', startMole);
-    $startBtn.textContent = 'AGAIN ???????';
+    $startBtn.textContent = 'AGAIN';
     $startBtn.style.color = '#f2ecff';
   }
 }
@@ -108,6 +108,32 @@ function catchMole() {
 }
 
 
+// // 게임 엔딩 & 다시 하기 버튼 실행 함수
+// // 70점 이상 획득시 승리, 미만일시 패배
+let $ending = document.querySelector('.ending');
+let $endingBox = document.querySelector('.ending-box');
+let $endingBtn = document.querySelector('.ending-bg');
+let $finalEnding = document.querySelector('.finalEnding');
+
+function modalEvent() {
+  let point = (getPoint / 10) * 100;
+  if (point <= 70){
+    $endingBox.innerHTML = "<span>GAME OVER </span></br>YOUR SCORE IS&nbsp;&nbsp;<span class='last'>" + point + '</span>!';
+  } else {
+    $endingBox.innerHTML = "<span>YOU WIN</span></br>YOUR SCORE IS&nbsp;&nbsp;<span class='last'>" + point + '</span>!';
+  }
+  $ending.style.display = 'block';
+  $endingBtn.style.display = 'block';
+  // $ending.classList.add($finalEnding); // 모달 박스가 나타나게
+  // $endingBtn.classList.add($finalEnding);
+}
+
+function hideModal() {
+  $ending.style.display = 'none';
+  $endingBtn.style.display = 'none';
+  // $ending.classList.remove($finalEnding); // 모달 박스가 사라지게
+  // $endingBtn.classList.remove($finalEnding);
+}
 
 // ================ 함수 실행 영역 ============//
 // 1초마다 bling함수 실행
@@ -115,3 +141,6 @@ setInterval(bling, 1000);
 
 // 시작버튼 누를 시 게임시작
 $startBtn.addEventListener('click', startMole);
+
+// 엔딩버튼 클릭시 모달 사라짐
+$endingBtn.addEventListener('click', hideModal);
